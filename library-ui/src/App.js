@@ -13,8 +13,14 @@ function App({ instance }) {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const result = await httpClient.get('getBooks');
-      setBooks(result.data);
+      const result = await httpClient.get('getBooks', {
+        params : {
+          limit: 10,
+          offset: 0
+        }
+      });
+
+      setBooks(result.data.data);
     }
 
     fetchBooks();
@@ -29,7 +35,7 @@ function App({ instance }) {
           {
             books.map(book => (
               <div key={book.id}>
-                <h1>{book.name}</h1>
+                <h1>{book.title}</h1>
               </div>
               )
             ) 
